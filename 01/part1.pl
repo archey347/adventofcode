@@ -1,4 +1,4 @@
-#!/usr/bin/en perl
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
@@ -11,11 +11,11 @@ while(<STDIN>) {
     chomp $line;
 
     if($line eq "") {
-        $max = max $max, $tmp;
+        $max = $tmp if $tmp > $max;
         $tmp = 0;
     } else {
         $tmp += $line;
     } 
 }
 
-print "$max;";
+print "$max";
