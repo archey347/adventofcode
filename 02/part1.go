@@ -11,9 +11,11 @@ import (
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
-	check_r := 12
-	check_g := 13
-	check_b := 14
+	colours := map[string]int{
+		"red":   12,
+		"green": 13,
+		"blue":  14,
+	}
 
 	sum := 0
 
@@ -35,25 +37,9 @@ func main() {
 				count, _ := strconv.Atoi(data[0])
 				colour := data[1]
 
-				if colour == "red" {
-					if count > check_r {
-						pass = false
-						break
-					}
-				}
-
-				if colour == "green" {
-					if count > check_g {
-						pass = false
-						break
-					}
-				}
-
-				if colour == "blue" {
-					if count > check_b {
-						pass = false
-						break
-					}
+				if count > colours[colour] {
+					pass = false
+					break
 				}
 
 			}
