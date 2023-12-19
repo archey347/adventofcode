@@ -15,20 +15,13 @@ func main() {
 
 	var sum int = 0
 
-	var counter int = 0
-
 	for scanner.Scan() {
-		fmt.Println("New line", counter)
 		line := scanner.Text()
 
 		shift(&buffer, line)
 
 		sum += get_sum(buffer)
-
-		counter += 1
 	}
-
-	fmt.Println("New line")
 
 	shift(&buffer, "")
 	sum += get_sum(buffer)
@@ -68,49 +61,13 @@ func get_sum(lines [3]string) int {
 			if !unicode.IsDigit(rune(c)) {
 				in_number = false
 
-				if last_symbol_pos < 0 {
-					fmt.Println(" Discarded number: " + number_buffer)
-				} else {
+				if last_symbol_pos >= 0 {
 					if len(number_buffer)+1 >= last_symbol_pos {
 						val, _ := strconv.Atoi(number_buffer)
 
-						fmt.Println(" Found number: " + number_buffer)
-
 						sum += val
-					} else {
-						fmt.Println(" Discarded number: " + number_buffer)
 					}
 				}
-
-				above_line := ""
-				this_line := ""
-				below_line := ""
-
-				begin := i - len(number_buffer) - 1
-				end := i + 1
-
-				if end > len(lines[1]) {
-					end = len(lines[1]) - 1
-				}
-
-				if begin < 0 {
-					begin = 0
-				}
-
-				if len(lines[0]) > 0 {
-					above_line = lines[0][begin:end]
-				}
-
-				this_line = lines[1][begin:end]
-
-				if len(lines[2]) > 0 {
-					below_line = lines[2][begin:end]
-				}
-
-				fmt.Println("  " + above_line)
-				fmt.Println("  " + this_line)
-				fmt.Println("  " + below_line)
-
 			} else {
 				number_buffer += string(c)
 			}
@@ -123,17 +80,11 @@ func get_sum(lines [3]string) int {
 	}
 
 	if in_number {
-		if last_symbol_pos < 0 {
-			fmt.Println(" Discarded number: " + number_buffer)
-		} else {
+		if last_symbol_pos >= 0 {
 			if len(number_buffer) >= last_symbol_pos {
 				val, _ := strconv.Atoi(number_buffer)
 
-				fmt.Println(" Found number: " + number_buffer)
-
 				sum += val
-			} else {
-				fmt.Println(" Discarded number: " + number_buffer)
 			}
 		}
 	}
