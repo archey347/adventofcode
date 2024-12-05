@@ -1,3 +1,3 @@
 ## AOC 2024
 
-This year with Javacript.
+This year with Javascript.
